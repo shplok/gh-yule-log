@@ -8,6 +8,6 @@ Set Width 960
 Set Height 480
 
 Type "gh yule-log --contribs" 
-Sleep 100ms 
+Sleep 200ms 
 Enter
 Sleep 10s
