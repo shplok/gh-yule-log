@@ -1,35 +1,14 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
-echo "Hello gh-yule-log!"
+# GitHub CLI extension entrypoint for `gh yule-log`
+# This just runs the curses-based fire animation in fire.py.
 
-# Snippets to help get started:
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Determine if an executable is in the PATH
-# if ! type -p ruby >/dev/null; then
-#   echo "Ruby not found on the system" >&2
-#   exit 1
-# fi
+if ! command -v python3 >/dev/null 2>&1; then
+	echo "python3 is required to run gh-yule-log" >&2
+	exit 1
+fi
 
-# Pass arguments through to another command
-# gh issue list "$@" -R cli/cli
-
-# Using the gh api command to retrieve and format information
-# QUERY='
-#   query($endCursor: String) {
-#     viewer {
-#       repositories(first: 100, after: $endCursor) {
-#         nodes {
-#           nameWithOwner
-#           stargazerCount
-#         }
-#       }
-#     }
-#   }
-# '
-# TEMPLATE='
-#   {{- range $repo := .data.viewer.repositories.nodes -}}
-#     {{- printf "name: %s - stargazers: %v\n" $repo.nameWithOwner $repo.stargazerCount -}}
-#   {{- end -}}
-# '
-# exec gh api graphql -f query="${QUERY}" --paginate --template="${TEMPLATE}"
+exec python3 "${SCRIPT_DIR}/fire.py" "$@"
