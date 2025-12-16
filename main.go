@@ -182,27 +182,22 @@ loop:
 
 		// Draw git info as two aligned lines at bottom.
 		if haveTicker && height >= 2 && len(msgText) > 0 {
-			length := len(msgText)
-			if length <= width {
-				msgVisible := padRight(msgText, width)
-				metaVisible := padRight(metaText, width)
-				for x, r := range []rune(msgVisible[:width]) {
-					s.SetContent(x, msgRow, r, nil, tcell.StyleDefault.Foreground(tcell.ColorWhite))
-				}
-				for x, r := range []rune(metaVisible[:width]) {
-					s.SetContent(x, metaRow, r, nil, tcell.StyleDefault.Foreground(tcell.ColorWhite))
-				}
-			} else {
+			msgRunes := []rune(msgText)
+			metaRunes := []rune(metaText)
+			msgLen := len(msgRunes)
+			metaLen := len(metaRunes)
+			if msgLen > 0 && metaLen > 0 {
 				for x := 0; x < width; x++ {
-					mi := (tickerOffset + x) % length
-					mr := rune(msgText[mi])
-					me := rune(metaText[mi])
+					mi := (tickerOffset + x) % msgLen
+					mj := (tickerOffset + x) % metaLen
+					mr := msgRunes[mi]
+					me := metaRunes[mj]
 					s.SetContent(x, msgRow, mr, nil, tcell.StyleDefault.Foreground(tcell.ColorWhite))
 					s.SetContent(x, metaRow, me, nil, tcell.StyleDefault.Foreground(tcell.ColorWhite))
 				}
-			}
-			if length > 0 && frame%4 == 0 {
-				tickerOffset = (tickerOffset + 1) % length
+				if frame%4 == 0 {
+					tickerOffset = (tickerOffset + 1) % msgLen
+				}
 			}
 		}
 
