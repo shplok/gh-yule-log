@@ -5,6 +5,7 @@ set -euo pipefail
 # Runs the Go implementation (no Python required).
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CALL_DIR="${PWD}"
 
 # If a pre-built binary is present, prefer that.
 if [ -x "${SCRIPT_DIR}/yule-log-go" ]; then
@@ -19,4 +20,4 @@ if ! command -v go >/dev/null 2>&1; then
 fi
 
 cd "${SCRIPT_DIR}"
-exec go run . "$@"
+exec env YULE_LOG_GIT_DIR="${CALL_DIR}" go run . "$@"

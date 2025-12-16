@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"math/rand"
+	"os"
 	"os/exec"
 	"strconv"
 	"strings"
@@ -52,8 +53,15 @@ func padRight(s string, n int) string {
 
 // buildGitTickerText runs git log and returns the scrolling texts.
 func buildGitTickerText(maxCommits int) (string, string, bool) {
-	cmd := exec.Command("git", "log", "-n", 
-		strconv.Itoa(maxCommits), "--pretty=format:%h%x09%an%x09%ar%x09%s")
+	args := []string{
+		"log",
+		"-n", strconv.Itoa(maxCommits),
+		"--pretty=format:%h%x09%an%x09%ar%x09%s",
+	}
+	cmd := exec.Command("git", args...)
+	if dir := os.Getenv("YULE_LOG_GIT_DIR"); dir != "" {
+		cmd.Dir = dir
+	}
 	out, err := cmd.Output()
 	if err != nil {
 		return "", "", false
