@@ -49,7 +49,7 @@ gh yule-log --contribs
  
 ## Inspiration
 
-I was surfing Netflix the other night and was astonished at how many [branded Yule logs there were](https://youtu.be/ytMdeo9Re1k?si=Fowy4F-40MmdwMcp). I figured GitHub should get in on that action! Also inspired by [@msimpson's crses-based ASCII art fire art from back in the day](https://gist.github.com/msimpson/1096950).
+I was surfing Netflix the other night and was astonished at how many [branded Yule logs there were](https://youtu.be/ytMdeo9Re1k?si=Fowy4F-40MmdwMcp). I figured GitHub should get in on that action! Also inspired by [@msimpson's curses-based ASCII art fire art from back in the day](https://gist.github.com/msimpson/1096950).
 
 ## License
 
